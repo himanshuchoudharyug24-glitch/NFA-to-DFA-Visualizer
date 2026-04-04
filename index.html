@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NFA to DFA Visualizer</title>
+    <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: #f4f4f4;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        input, textarea {
+            margin: 8px;
+            padding: 6px;
+            width: 260px;
+        }
+
+        button {
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #cy {
+            width: 90%;
+            height: 400px;
+            margin: auto;
+            border: 2px solid black;
+            background: white;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>🚀 NFA to DFA Visualizer</h2>
+<p><b>Name:</b> Himanshu Choudhary</p>
+<p><b>Roll No:</b> 2024UCS1604</p>
+<p><b>Subject:</b> Theory of Computation And Automata</p>
+<hr>
+
+<input id="states" placeholder="States: q0,q1"><br>
+<input id="alphabet" placeholder="Alphabet: 0,1"><br>
+
+<textarea id="transitions" rows="5" placeholder="q0,0=q0|q1"></textarea><br>
+
+<input id="start" placeholder="Start State"><br>
+<input id="final" placeholder="Final States: q1"><br>
+
+<button onclick="convert()">Convert</button>
+
+<h3>DFA States</h3>
+<div id="dfaStates"></div>
+
+<h3>Step-by-Step Conversion</h3>
+<div id="steps"></div>
+
+<h3>DFA Transition Table</h3>
+<div id="table"></div>
+
+<h3>Graphical Representation of DFA</h3>
+<div id="cy"></div>
+
+<script>
+function parseTransitions(input) {
+    let lines = input.split("\n");
+    let trans = {};
+
+    lines.forEach(line => {
+        let [left, right] = line.split("=");
+        if (!left || !right) return;
+
+        let [state, symbol] = left.split(",");
+        let nextStates = right.split("|");
+
+        if (!trans[state]) trans[state] = {};
+        trans[state][symbol] = nextStates;
+    });
+
+    return trans;
+}
+
+function convert() {
+    let alphabet = document.getElementById("alphabet").value.split(",");
+    let transitions = parseTransitions(document.getElementById("transitions").value);
+    let start = document.getElementById("start").value;
+
+    let dfaStates = [];
+    let queue = [];
+    let steps = "";
+
+    let startSet = [start];
+    dfaStates.push(startSet);
+    queue.push(startSet);
+
+    let dfaTrans = {};
+
+    while (queue.length > 0) {
+        let current = queue.shift();
+        let name = current.join(",");
+
+        steps += "Processing: {" + name + "} <br>";
+
+        dfaTrans[name] = {};
+
+        alphabet.forEach(symbol => {
+            let newSet = [];
+
+            current.forEach(state => {
+                if (transitions[state] && transitions[state][symbol]) {
+                    newSet = newSet.concat(transitions[state][symbol]);
+                }
+            });
+
+            newSet = [...new Set(newSet)];
+            let newName = newSet.join(",");
+
+            steps += "On " + symbol + " → {" + newName + "} <br>";
+
+            dfaTrans[name][symbol] = newName;
+
+            if (newName && !dfaStates.some(s => s.join(",") === newName)) {
+                dfaStates.push(newSet);
+                queue.push(newSet);
+            }
+        });
+
+        steps += "<br>";
+    }
+
+    document.getElementById("dfaStates").innerText =
+        dfaStates.map(s => "{" + s.join(",") + "}").join(" , ");
+
+    document.getElementById("steps").innerHTML = steps;
+
+    let html = "<table><tr><th>State</th>";
+    alphabet.forEach(a => html += "<th>" + a + "</th>");
+    html += "</tr>";
+
+    for (let state in dfaTrans) {
+        html += "<tr><td>{" + state + "}</td>";
+        alphabet.forEach(a => {
+            html += "<td>{" + dfaTrans[state][a] + "}</td>";
+        });
+        html += "</tr>";
+    }
+
+    html += "</table>";
+    document.getElementById("table").innerHTML = html;
+
+    let elements = [];
+
+    dfaStates.forEach(s => {
+        elements.push({
+            data: { id: s.join(","), label: "{" + s.join(",") + "}" }
+        });
+    });
+
+    for (let from in dfaTrans) {
+        for (let sym in dfaTrans[from]) {
+            let to = dfaTrans[from][sym];
+            if (to) {
+                elements.push({
+                    data: { source: from, target: to, label: sym }
+                });
+            }
+        }
+    }
+
+    cytoscape({
+        container: document.getElementById('cy'),
+        elements: elements,
+        style: [
+            {
+                selector: 'node',
+                style: {
+                    'label': 'data(label)',
+                    'background-color': '#007bff',
+                    'color': '#fff'
+                }
+            },
+            {
+                selector: 'edge',
+                style: {
+                    'label': 'data(label)',
+                    'curve-style': 'bezier',
+                    'target-arrow-shape': 'triangle'
+                }
+            }
+        ],
+        layout: { name: 'circle' }
+    });
+}
+</script>
+
+</body>
+</html>
