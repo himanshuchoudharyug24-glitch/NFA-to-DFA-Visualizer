@@ -30,24 +30,24 @@ It uses the **subset construction method** and provides both **graphical and tab
 * **Branch:** Computer Science And Engineering
 
 ---
-
 ## 📸 Screenshots
 
 ### 🔹 Input Section
 
-![Input](input.png)
+![Input](images/input.png)
 
 ### 🔹 NFA Graph
 
-![NFA Graph](nfa.png)
+![NFA Graph](images/nfa.png)
 
 ### 🔹 DFA Graph
 
-![DFA Graph](dfa.png)
+![DFA Graph](images/dfa.png)
 
 ### 🔹 Tables & Output
 
-![Output](table.png)
+![Output](images/table.png)
+
 
 ---
 
