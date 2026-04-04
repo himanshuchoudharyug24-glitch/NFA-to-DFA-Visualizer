@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NFA to DFA Visualizer</title>
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+<style>
+body { font-family: Arial; background:#eef2ff; margin:0; transition:0.3s; }
+.dark { background:#121212; color:#eee; }
+header { background:linear-gradient(45deg,#ff512f,#dd2476); color:#fff; padding:15px; text-align:center; }
+.box { background:#fff; margin:20px; padding:15px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+.dark .box { background:#1e1e1e; }
+input, textarea { width:100%; margin:5px 0; padding:8px; }
+button { background:#dd2476; color:#fff; padding:10px; border:none; border-radius:6px; margin:5px; cursor:pointer; }
+#nfaGraph, #dfaGraph { height:300px; border:1px solid #ccc; }
+table { width:100%; border-collapse:collapse; }
+th, td { border:1px solid #ccc; padding:6px; text-align:center; }
+th { background:#dd2476; color:white; }
+</style>
+</head>
+
+<body id="body">
+
+<header>
+<h2>NFA to DFA Visualizer</h2>
+<p><b>Name:</b> Himanshu Choudhary</p>
+<p><b>Roll No:</b> 2024UCS1604</p>
+<p><b>Subject:</b> Theory of Automata and Formal Languages</p>
+</header>
+
+<div class="box">
+<h3>Theory</h3>
+<p>NFA allows multiple transitions. DFA allows only one transition. Conversion is done using subset construction method.</p>
+<button onclick="toggleDark()">🌙 Dark Mode</button>
+<button onclick="toggleColor()">🎨 Change Colors</button>
+</div>
+
+<div class="box">
+<h3>Input</h3>
+States <input id="states" value="q0,q1,q2">
+Alphabet <input id="alphabet" value="0,1">
+Start <input id="start" value="q0">
+Final <input id="final" value="q2">
+<textarea id="transitions">{
+"q0":{"0":["q0","q1"],"1":["q0"]},
+"q1":{"1":["q2"]},
+"q2":{}
+}</textarea>
+<button onclick="convert()">Convert</button>
+</div>
+
+<div class="box"><h3>NFA Graph</h3><div id="nfaGraph"></div></div>
+<div class="box"><h3>DFA Graph</h3><div id="dfaGraph"></div></div>
+
+<div class="box"><h3>NFA Table</h3><table id="nfaTable"></table></div>
+<div class="box"><h3>DFA Table</h3><table id="dfaTable"></table></div>
+
+<div class="box">
+<h3>Explanation</h3>
+<p id="explain">Click Convert to see explanation...</p>
+</div>
+
+<script>
+let colorful=true;
+
+function draw(id,nodes,edges){
+let network=new vis.Network(document.getElementById(id),{
+nodes:new vis.DataSet(nodes),
+edges:new vis.DataSet(edges)
+},{
+edges:{arrows:'to',smooth:{type:'curvedCW',roundness:0.3}},
+physics:true
+});
+setTimeout(()=>network.fit(),300);
+}
+
+function toggleDark(){
+document.getElementById('body').classList.toggle('dark');
+}
+
+function toggleColor(){
+colorful=!colorful;
+convert();
+}
+
+function getColor(type){
+if(!colorful) return '#888';
+if(type==='start') return 'green';
+if(type==='final') return 'red';
+return 'skyblue';
+}
+
+function convert(){
+try{
+let states=document.getElementById('states').value.split(',').map(s=>s.trim());
+let alpha=document.getElementById('alphabet').value.split(',').map(s=>s.trim());
+let start=document.getElementById('start').value.trim();
+let finals=document.getElementById('final').value.split(',').map(s=>s.trim());
+let trans=JSON.parse(document.getElementById('transitions').value);
+
+// ✅ FIXED NFA COLORS
+let nNodes=states.map(s=>({
+id:s,
+label:s,
+color:getColor(s===start ? 'start' : (finals.includes(s) ? 'final' : 'normal'))
+}));
+
+let nEdges=[];
+for(let s in trans){
+for(let a in trans[s]){
+trans[s][a].forEach(t=>nEdges.push({from:s,to:t,label:a}));
+}}
+draw('nfaGraph',nNodes,nEdges);
+
+// NFA TABLE
+let nTable='<tr><th>State</th>'+alpha.map(a=>`<th>${a}</th>`).join('')+'</tr>';
+states.forEach(s=>{
+nTable+='<tr><td>'+s+'</td>';
+alpha.forEach(a=>{
+nTable+='<td>'+((trans[s]&&trans[s][a])?trans[s][a].join(','):'-')+'</td>';
+});
+nTable+='</tr>';
+});
+document.getElementById('nfaTable').innerHTML=nTable;
+
+// DFA
+let queue=[[start]];
+let visited=[];
+let dEdges=[];
+
+while(queue.length){
+let curr=queue.shift().sort();
+let name=curr.join(',');
+if(visited.find(v=>v.join(',')===name)) continue;
+visited.push(curr);
+
+alpha.forEach(a=>{
+let next=[];
+curr.forEach(s=>{
+if(trans[s]&&trans[s][a]) next=next.concat(trans[s][a]);
+});
+next=[...new Set(next)].sort();
+
+if(next.length){
+let nextName=next.join(',');
+dEdges.push({from:name,to:nextName,label:a});
+queue.push(next);
+}
+});
+}
+
+// ✅ FIXED DFA COLORS
+let dNodes=visited.map(v=>{
+let name=v.join(',');
+let isFinal=v.some(s=>finals.includes(s));
+return {
+id:name,
+label:name,
+color:getColor(isFinal ? 'final' : 'normal')
+};
+});
+
+if(dNodes.length) dNodes[0].color='green';
+
+draw('dfaGraph',dNodes,dEdges);
+
+// DFA TABLE
+let dTable='<tr><th>State</th>'+alpha.map(a=>`<th>${a}</th>`).join('')+'</tr>';
+visited.forEach(v=>{
+dTable+='<tr><td>'+v.join(',')+'</td>';
+alpha.forEach(a=>{
+let next=[];
+v.forEach(s=>{
+if(trans[s]&&trans[s][a]) next.push(...trans[s][a]);
+});
+next=[...new Set(next)].sort();
+dTable+='<td>'+(next.length?next.join(','):'-')+'</td>';
+});
+dTable+='</tr>';
+});
+document.getElementById('dfaTable').innerHTML=dTable;
+
+// Explanation
+document.getElementById('explain').innerHTML =
+"DFA is constructed using subset construction. Each state like {q0,q1} represents combined NFA states.";
+
+alert("✅ Conversion Successful");
+
+}catch(e){
+alert('❌ Error: Check JSON');
+console.error(e);
+}
+}
+</script>
+
+</body>
+</html>
