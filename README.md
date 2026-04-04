@@ -34,19 +34,19 @@ It uses the **subset construction method** and provides both **graphical and tab
 
 ### 🔹 Input Section
 
-![Input](images/input.png)
+![Input](image/input.png)
 
 ### 🔹 NFA Graph
 
-![NFA Graph](images/nfa.png)
+![NFA Graph](image/nfa.png)
 
 ### 🔹 DFA Graph
 
-![DFA Graph](images/dfa.png)
+![DFA Graph](image/dfa.png)
 
 ### 🔹 Tables & Output
 
-![Output](images/table.png)
+![Output](image/table.png)
 
 
 
