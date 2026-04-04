@@ -1,16 +1,25 @@
 # 🚀 NFA to DFA Visualizer
 
-<p align="center">
-  A simple and interactive project to understand how NFA is converted into DFA
-</p>
+![Project Banner](https://img.shields.io/badge/Project-NFA--to--DFA-blue)
+![HTML](https://img.shields.io/badge/HTML-5-orange)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 
 ---
 
-## 📌 About this project
+🌐 **Live Demo:**
+https://himanshuchoudharyug24-glitch.github.io/NFA-to-DFA-Visualizer/
 
-This project is a web-based tool that converts a **Non-Deterministic Finite Automaton (NFA)** into a **Deterministic Finite Automaton (DFA)**.
+🔗 **GitHub Repository:**
+https://github.com/himanshuchoudharyug24-glitch/NFA-to-DFA-Visualizer
 
-The goal of this project is to understand the concept of **subset construction** in a practical way. Instead of only learning theory, this tool helps visualize how the conversion actually happens.
+---
+
+## 📌 About the Project
+
+This project is a **web-based NFA to DFA converter** that helps visualize how a Non-Deterministic Finite Automaton (NFA) is converted into a Deterministic Finite Automaton (DFA).
+
+It uses the **subset construction method** and provides both **graphical and tabular outputs** for better understanding.
 
 ---
 
@@ -18,46 +27,66 @@ The goal of this project is to understand the concept of **subset construction**
 
 * **Name:** Himanshu Choudhary
 * **Roll Number:** 2024UCS1604
+* **Branch:** Computer Science And Engineering
+
+---
+
+## 📸 Screenshots
+
+### 🔹 Input Section
+
+![Input](images/input.png)
+
+### 🔹 NFA Graph
+
+![NFA Graph](images/nfa.png)
+
+### 🔹 DFA Graph
+
+![DFA Graph](images/dfa.png)
+
+### 🔹 Tables & Output
+
+![Output](images/output.png)
 
 ---
 
 ## ✨ Features
 
-* 🔄 Convert NFA to DFA
-* 📊 Visual representation using graphs
-* 📋 Transition tables for both NFA and DFA
-* 🌙 Dark mode option
-* 🎨 Color theme toggle
-* 🧠 Basic explanation of output
+* 🔄 Convert NFA to DFA automatically
+* 📊 Graph visualization of NFA and DFA
+* 📋 Transition tables
+* 🌙 Dark mode
+* 🎨 Color theme switch
+* 🧠 Output explanation
 
 ---
 
-## ⚙️ How it works
+## ⚙️ How It Works
 
-The conversion is done using the **subset construction method**.
-
-* Each DFA state represents a **set of NFA states**
-* A queue is used to explore all possible states
-* The process continues until no new states are generated
+* Uses **subset construction algorithm**
+* DFA states represent **sets of NFA states**
+* Explores states using **queue-based approach**
+* Continues until no new states are found
 
 ---
 
-## ▶️ How to run
+## ▶️ How to Run
 
-1. Download or clone the repository
-2. Open `index.html` in your browser
-3. Enter your NFA details
+1. Download or clone repository
+2. Open `index.html` in browser
+3. Enter NFA
 4. Click **Convert**
 
 ---
 
-## 🧪 Example input
+## 🧪 Example Input
 
 ```json
 {
-"q0":{"0":["q0","q1"],"1":["q0"]},
-"q1":{"1":["q2"]},
-"q2":{}
+  "q0": {"0": ["q0","q1"], "1": ["q0"]},
+  "q1": {"1": ["q2"]},
+  "q2": {}
 }
 ```
 
@@ -65,41 +94,44 @@ The conversion is done using the **subset construction method**.
 
 ## 📈 Output
 
-After clicking convert, the project will show:
-
-* NFA Graph
-* DFA Graph
-* NFA Transition Table
-* DFA Transition Table
-* Explanation
+* ✅ NFA Graph
+* ✅ DFA Graph
+* ✅ NFA Table
+* ✅ DFA Table
+* ✅ Explanation
 
 ---
 
-## 📚 What I learned
+## 📚 What I Learned
 
-* Practical understanding of NFA and DFA
-* Implementation of subset construction
-* Using JavaScript for logic building
+* Automata concepts (NFA → DFA)
+* Subset construction
+* JavaScript logic building
 * Graph visualization using vis.js
 
 ---
 
-## 🔮 Future improvements
+## 🔮 Future Improvements
 
-* Step-by-step animation
+* Animation of conversion
 * Export results
-* Improved UI design
+* UI enhancements
 
 ---
 
 ## 📝 Note
 
-This project is created as part of academic learning and is mainly focused on understanding concepts.
+This project is developed for academic learning purposes.
 
 ---
 
 ## ⭐ Final Thought
 
-Building this project helped me understand automata theory in a much clearer and practical way.
+This project transforms theoretical concepts into a **visual and interactive experience**, making learning more effective.
+
+---
+
+💡 *Thank you for visiting this project!*
+
 
 
