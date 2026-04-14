@@ -1,4 +1,4 @@
-# 🚀 NFA to DFA Visualizer
+#  NFA to DFA Visualizer
 
 ![Project Banner](https://img.shields.io/badge/Project-NFA--to--DFA-blue)
 ![HTML](https://img.shields.io/badge/HTML-5-orange)
@@ -7,15 +7,15 @@
 
 ---
 
-🌐 **Live Demo:**
+ **Live Demo:**
 https://himanshuchoudharyug24-glitch.github.io/NFA-to-DFA-Visualizer/
 
-🔗 **GitHub Repository:**
+ **GitHub Repository:**
 https://github.com/himanshuchoudharyug24-glitch/NFA-to-DFA-Visualizer
 
 ---
 
-## 📌 About the Project
+##  About the Project
 
 This project is a **web-based NFA to DFA converter** that helps visualize how a Non-Deterministic Finite Automaton (NFA) is converted into a Deterministic Finite Automaton (DFA).
 
@@ -23,28 +23,28 @@ It uses the **subset construction method** and provides both **graphical and tab
 
 ---
 
-## 👨‍🎓 Student Details
+##  Student Details
 
 * **Name:** Himanshu Choudhary
 * **Roll Number:** 2024UCS1604
 * **Branch:** Computer Science And Engineering
 
 ---
-## 📸 Screenshots
+##  Screenshots
 
-### 🔹 Input Section
+###  Input Section
 
 ![Input](image/input.png)
 
-### 🔹 NFA Graph
+###  NFA Graph
 
 ![NFA Graph](image/nfa.png)
 
-### 🔹 DFA Graph
+###  DFA Graph
 
 ![DFA Graph](image/dfa.png)
 
-### 🔹 Tables & Output
+### Tables & Output
 
 ![Output](image/table.png)
 
@@ -52,18 +52,18 @@ It uses the **subset construction method** and provides both **graphical and tab
 
 ---
 
-## ✨ Features
+##  Features
 
-* 🔄 Convert NFA to DFA automatically
-* 📊 Graph visualization of NFA and DFA
-* 📋 Transition tables
-* 🌙 Dark mode
-* 🎨 Color theme switch
-* 🧠 Output explanation
+*  Convert NFA to DFA automatically
+*  Graph visualization of NFA and DFA
+*  Transition tables
+*  Dark mode
+*  Color theme switch
+*  Output explanation
 
 ---
 
-## ⚙️ How It Works
+##  How It Works
 
 * Uses **subset construction algorithm**
 * DFA states represent **sets of NFA states**
@@ -72,7 +72,7 @@ It uses the **subset construction method** and provides both **graphical and tab
 
 ---
 
-## ▶️ How to Run
+## How to Run
 
 1. Download or clone repository
 2. Open `index.html` in browser
@@ -81,7 +81,7 @@ It uses the **subset construction method** and provides both **graphical and tab
 
 ---
 
-## 🧪 Example Input
+##  Example Input
 
 ```json
 {
@@ -93,17 +93,17 @@ It uses the **subset construction method** and provides both **graphical and tab
 
 ---
 
-## 📈 Output
+##  Output
 
-* ✅ NFA Graph
-* ✅ DFA Graph
-* ✅ NFA Table
-* ✅ DFA Table
-* ✅ Explanation
+*  NFA Graph
+*  DFA Graph
+*  NFA Table
+*  DFA Table
+*  Explanation
 
 ---
 
-## 📚 What I Learned
+##  What I Learned
 
 * Automata concepts (NFA → DFA)
 * Subset construction
@@ -112,7 +112,7 @@ It uses the **subset construction method** and provides both **graphical and tab
 
 ---
 
-## 🔮 Future Improvements
+##  Future Improvements
 
 * Animation of conversion
 * Export results
@@ -120,19 +120,19 @@ It uses the **subset construction method** and provides both **graphical and tab
 
 ---
 
-## 📝 Note
+##  Note
 
 This project is developed for academic learning purposes.
 
 ---
 
-## ⭐ Final Thought
+##  Final Thought
 
 This project transforms theoretical concepts into a **visual and interactive experience**, making learning more effective.
 
 ---
 
-💡 *Thank you for visiting this project!*
+    *Thank you for visiting this project!*
 
 
 
