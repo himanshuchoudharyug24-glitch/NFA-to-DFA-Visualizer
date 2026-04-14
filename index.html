@@ -99,7 +99,7 @@ let start=document.getElementById('start').value.trim();
 let finals=document.getElementById('final').value.split(',').map(s=>s.trim());
 let trans=JSON.parse(document.getElementById('transitions').value);
 
-// ✅ FIXED NFA COLORS
+// FIXED NFA COLORS
 let nNodes=states.map(s=>({
 id:s,
 label:s,
@@ -150,7 +150,7 @@ queue.push(next);
 });
 }
 
-// ✅ FIXED DFA COLORS
+//  FIXED DFA COLORS
 let dNodes=visited.map(v=>{
 let name=v.join(',');
 let isFinal=v.some(s=>finals.includes(s));
